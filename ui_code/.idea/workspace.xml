@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0af4a05c-bfcb-449d-a0ea-278cbac33c72" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../java_code/src/main/java/com/example/demo/ElasticSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java_code/src/main/java/com/example/demo/ElasticSearchController.java" afterDir="false" />
-    </list>
+    <list default="true" id="0af4a05c-bfcb-449d-a0ea-278cbac33c72" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +27,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/lavanya/Documents/lavanya_academic/Project/Kibana-search/conf-kib-both/api-project/ui_code",
+    "last_opened_file_path": "/Users/jane/Documents/efk/frontend/api-project-ui-repo/ui_code",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
