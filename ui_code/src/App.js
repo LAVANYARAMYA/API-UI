@@ -27,6 +27,7 @@ function App() {
     const [startTime, setStartTime] = useState('00:00');
     const [endTime, setEndTime] = useState('23:59');
     const [data, setData] = useState([]);
+    const [service, setService] = useState('Alpha');
 
 
     const s_year = startDate.getFullYear();
@@ -41,14 +42,9 @@ function App() {
 
     const enddateString = e_year + '-' + e_month + '-' + e_date;
 
-
-
-
-
-
-
-
-
+const handleSelectChange = (event) => {
+    setService(event.target.value);
+  };
 
     const handleSubmit = async (event) => {
     event.preventDefault();
@@ -57,6 +53,7 @@ function App() {
     try {
     const response= await axios.get('http://localhost:8080/api/confluence' ,{
     params: {
+    service: service,
     input: input
      }    }  );
      setConfluenceOutput(response.data);
@@ -199,82 +196,101 @@ function App() {
            <div className="App">
               <header className="App-header">
                  <form onSubmit={handleSubmit}>
-                     <div style={{ display: 'flex'}} >
-                      Keyword:<span></span>
-                      <div><input className="searchBar input" type="text" value={input} onChange={handleInputChange} /></div>
-                      <button type="submit"  onSubmit={handleSubmit}> Search </button>
 
-                       <div>
-                                           <label>Start Date:</label>
-                                           <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
-                                           <br />
-                                           <label>End Date:</label>
-                                           <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
-                                           <br />
-                                           <label>Start Time:</label>
-                                           <input type="time" value={startTime} onChange={e => setStartTime(e.target.value)} />
-                                           <br />
-                                           <label>End Time:</label>
-                                           <input type="time" value={endTime} onChange={e => setEndTime(e.target.value)} />
-                                           <br />
+    <div>
+      <br />
+      <label>Service</label>
+      <select value={service} onChange={handleSelectChange} style={{ marginLeft: '0.5rem' }}>
+        <option value="Alpha"> Alpha</option>
+        <option value="modules">Beta</option>
+        <option value="Gamma">Gamma</option>
+      </select>
 
-                      </div>
+      <div className="row">
+        <label>Start Date:</label>
+        <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+        <label>End Date:</label>
+        <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
+        <br />
+      </div>
+      <div className="row">
+        <label>Start Time:</label>
+        <input type="time" value={startTime} onChange={e => setStartTime(e.target.value)}  />
+        <br />
+        <label>End Time:</label>
+        <input type="time" value={endTime} onChange={e => setEndTime(e.target.value)}  />
+        <br />
+      </div>
+      <br />
+      <div style={{ display: 'flex' }}>
+        <label>Keyword:</label><span></span>
+        <div><input className="searchBar input" type="text" value={input} onChange={handleInputChange} style={{ marginLeft: '0.5rem' }} /></div>
+      </div>
+      <button type="submit" onSubmit={handleSubmit} style={{ marginTop: '1rem' }}> Search </button>
+    </div>
 
+  </form>
 
+</header>
 
+<br />
+<br />
+<br />
+     <div className="content">
 
-                     </div>
-                 </form>
-              </header>
-
-
-             Confluence content
-             <div className="content">
-             <ul>
+<ul>
+  Confluence content:
              {currentBlogs.map((link, index) => (
                   <li key={index}>
+
                           {link === 'Keyword not found' ? (
                                      <p>Keyword not found</p>
                                          ) : (
-                                              <a href={encodeURI(currentBlogs[index])} target="_blank">{currentBlogs1[index]}</a>
-                                              )}
 
+                                              <a href={encodeURI(currentBlogs[index])} target="_blank">{currentBlogs1[index]}</a>
+                                                      )}
                   </li>
              ))}
-             </ul>
+           </ul>
+                      <div className="page">
+                          {renderPageNumbers}
+                      </div>
+</div>
 
 
-             <div className="page">
-             {renderPageNumbers} </div>
-             </div>
 
+<div className="content">
 
-            Elasticsearch Logs
-            <div className="content">
-            <ul>
-               {currentBlogs2.map((link,index)=>(
-                    <li key={index}>
-                          {link==='Keyword not found'?(
-                                   <p>Keyword not found</p>
-                                    ):(<p>{currentBlogs2[index]}</p>
-                                    )}
+ <ul>
+ Elasticsearch logs
+ {currentBlogs2.map((link,index)=>(
+ <li key={index}>
 
-                    </li>
-                    ))}
-            </ul>
+ {link==='Keyword not found'?(
+ <p>Keyword not found</p>
+ ):(
+
+ <p>{currentBlogs2[index]}</p>
+
+ )}
+
+ </li>
+ ))}
+ </ul>
 
             <div className="page">
                 {renderPageNumbers1}
             </div>
-            </div>
+     </div>
 
 
-             Stackoverflow results
+     <div className="content">
 
-             <div className="content">
-              <ul>
+      <ul>
+Stackoverflow results
                    {currentBlogs3.map((link, index) => (
                         <li key={index}>
+
                                 {link === 'Keyword not found' ? (
                                            <p>Keyword not found</p>
                                                ) : (
@@ -282,7 +298,7 @@ function App() {
                                                             )}
                         </li>
                    ))}
-               </ul>
+                 </ul>
 
                  <div className="page">
                      {renderPageNumbers2}
