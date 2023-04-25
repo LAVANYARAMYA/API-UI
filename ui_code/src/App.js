@@ -3,6 +3,7 @@ import React, { useState,useEffect } from 'react';
 import './App.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment-timezone';
 
 
 
@@ -28,6 +29,42 @@ function App() {
     const [endTime, setEndTime] = useState('23:59');
     const [data, setData] = useState([]);
     const [service, setService] = useState('Alpha');
+
+
+
+
+
+    const istDateTimeStart = moment(`${startDate.toISOString().split('T')} ${startTime}`, 'YYYY-MM-DD HH:mm');
+
+        const istDateTimeEnd = moment(`${endDate.toISOString().split('T')} ${endTime}`, 'YYYY-MM-DD HH:mm');
+
+        const utcDateTimeStart = istDateTimeStart.clone().utc();
+
+        const utcDateTimeEnd = istDateTimeEnd.clone().utc();
+
+        // Format the UTC date and time as a string
+        const utcDateTimeString = utcDateTimeStart.format('YYYY-MM-DD HH:mm:ss');
+
+        const utcDateTime1 = moment(utcDateTimeString, 'YYYY-MM-DD HH:mm:ss');
+
+        // Get the UTC date and time separately
+        const utcDateStart = utcDateTime1.format('YYYY-MM-DD');
+        const utcTimeStart = utcDateTime1.format('HH:mm:ss');
+
+
+
+        const utcDateTimeString1 = utcDateTimeEnd.format('YYYY-MM-DD HH:mm:ss');
+
+            const utcDateTime2 = moment(utcDateTimeString1, 'YYYY-MM-DD HH:mm:ss');
+
+            // Get the UTC date and time separately
+            const utcDateStart1 = utcDateTime2.format('YYYY-MM-DD');
+            const utcTimeStart1 = utcDateTime2.format('HH:mm:ss');
+
+
+        // Print the UTC date and time separately
+        console.log(typeof utcDateStart);
+         console.log(typeof utcTimeStart);
 
 
     const s_year = startDate.getFullYear();
@@ -65,10 +102,10 @@ const handleSelectChange = (event) => {
         const elasticResponse= await axios.get('http://localhost:8080/api/elasticsearch' ,{
         params: {
         input: input,
-        startdateString: startdateString,
-        enddateString: enddateString,
-        startTime: startTime,
-        endTime: endTime
+        utcDateStart: utcDateStart,
+                utcDateStart1: utcDateStart1,
+                utcTimeStart: utcTimeStart,
+                utcTimeStart1: utcTimeStart1
          }    }  );
          setElasticOutput(elasticResponse.data);
          }    catch(error)  {
