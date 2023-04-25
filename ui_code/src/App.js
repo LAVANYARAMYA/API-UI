@@ -105,7 +105,8 @@ const handleSelectChange = (event) => {
         utcDateStart: utcDateStart,
                 utcDateStart1: utcDateStart1,
                 utcTimeStart: utcTimeStart,
-                utcTimeStart1: utcTimeStart1
+                utcTimeStart1: utcTimeStart1,
+                service: service
          }    }  );
          setElasticOutput(elasticResponse.data);
          }    catch(error)  {
@@ -238,9 +239,9 @@ const handleSelectChange = (event) => {
       <br />
       <label>Service</label>
       <select value={service} onChange={handleSelectChange} style={{ marginLeft: '0.5rem' }}>
-        <option value="Alpha"> Alpha</option>
-        <option value="modules">Beta</option>
-        <option value="Gamma">Gamma</option>
+        <option value="Kubernetes"> Kubernetes</option>
+        <option value="Kibana">Kibana</option>
+        <option value="elasticsearch-master">Elasticsearch</option>
       </select>
 
       <div className="row">
