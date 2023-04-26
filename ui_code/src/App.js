@@ -239,9 +239,9 @@ const handleSelectChange = (event) => {
       <br />
       <label>Service</label>
       <select value={service} onChange={handleSelectChange} style={{ marginLeft: '0.5rem' }}>
-        <option value="Kubernetes"> Kubernetes</option>
-        <option value="Kibana">Kibana</option>
-        <option value="elasticsearch-master">Elasticsearch</option>
+        <option value="Alpha"> Alpha</option>
+        <option value="Beta">Beta</option>
+        <option value="Gamma">Gamma</option>
       </select>
 
       <div className="row">
