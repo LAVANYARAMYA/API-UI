@@ -22,7 +22,7 @@ function App() {
     const [blogsPerPage1, setBlogsPerPage1] = useState(10);
     const [blogsPerPage2, setBlogsPerPage2] = useState(10);
     const confluenceList=[[]];
-
+    const [submitted, setSubmitted] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [startTime, setStartTime] = useState('00:00');
@@ -85,6 +85,7 @@ const handleSelectChange = (event) => {
 
     const handleSubmit = async (event) => {
     event.preventDefault();
+    setSubmitted(true);
 
     //confluence
     try {
@@ -197,7 +198,7 @@ const handleSelectChange = (event) => {
                    </p>
                  );
                });
-
+console.log(elasticOutput.length);
                 // pagination for elastic
               const pageNumbers1 = [];
                for (let i = 1; i <= Math.ceil(elasticOutput.length / blogsPerPage1); i++) {
@@ -237,7 +238,7 @@ const handleSelectChange = (event) => {
 
     <div>
       <br />
-      <label>Service</label>
+      <label>Service Name </label>
       <select value={service} onChange={handleSelectChange} style={{ marginLeft: '0.5rem' }}>
         <option value="Alpha"> Alpha</option>
         <option value="Beta">Beta</option>
@@ -262,9 +263,11 @@ const handleSelectChange = (event) => {
       <br />
       <div style={{ display: 'flex' }}>
         <label>Keyword:</label><span></span>
-        <div><input className="searchBar input" type="text" value={input} onChange={handleInputChange} style={{ marginLeft: '0.5rem' }} /></div>
+        <div><input className="searchBar input" type="text" value={input} onChange={handleInputChange} style={{ marginLeft: '0.5rem', width: '400px' }} required placeholder="Enter the keyword to be searched" /></div>
       </div>
+      <div className="button-container">
       <button type="submit" onSubmit={handleSubmit} style={{ marginTop: '1rem' }}> Search </button>
+      </div>
     </div>
 
   </form>
@@ -276,8 +279,7 @@ const handleSelectChange = (event) => {
 <br />
      <div className="content">
 
-<ul>
-  Confluence content:
+<ul> {submitted && <h2>Confluence Content</h2>}
              {currentBlogs.map((link, index) => (
                   <li key={index}>
 
@@ -290,9 +292,10 @@ const handleSelectChange = (event) => {
                   </li>
              ))}
            </ul>
+            {submitted &&
                       <div className="page">
                           {renderPageNumbers}
-                      </div>
+                      </div>}
 </div>
 
 
@@ -300,7 +303,8 @@ const handleSelectChange = (event) => {
 <div className="content">
 
  <ul>
- Elasticsearch logs
+ {submitted && <h2>Elasticsearch logs</h2>}
+
  {currentBlogs2.map((link,index)=>(
  <li key={index}>
 
@@ -315,17 +319,17 @@ const handleSelectChange = (event) => {
  </li>
  ))}
  </ul>
-
+ {submitted &&
             <div className="page">
                 {renderPageNumbers1}
-            </div>
+            </div>}
      </div>
 
 
      <div className="content">
 
       <ul>
-Stackoverflow results
+       {submitted && <h2>Stackoverflow results</h2>}
                    {currentBlogs3.map((link, index) => (
                         <li key={index}>
 
@@ -337,10 +341,10 @@ Stackoverflow results
                         </li>
                    ))}
                  </ul>
-
+       {submitted &&
                  <div className="page">
                      {renderPageNumbers2}
-                 </div>
+                 </div>}
                </div>
 
 
@@ -351,4 +355,3 @@ Stackoverflow results
      }
 
 export default App;
-
