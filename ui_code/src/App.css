@@ -44,11 +44,15 @@ select {
   margin-left: 0.5rem; /* add some space between the keyword label and input */
 }
 
-button {
-  margin-top: 1rem; /* add some margin on top of the button */
+.button-container {
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+   /* add some margin on top of the button */
 }
 
-content{
+.content{
 display:flex;
 justify-content: center;
 }
@@ -57,8 +61,10 @@ justify-content: center;
 flex-direction:row;
 display:flex;
 justify-content:center;
-
+border-bottom: 1px solid black;
 }
+
+
 
 
 
