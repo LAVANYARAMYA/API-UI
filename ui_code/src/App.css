@@ -52,7 +52,7 @@ select {
    /* add some margin on top of the button */
 }
 
-.content{
+content{
 display:flex;
 justify-content: center;
 }
